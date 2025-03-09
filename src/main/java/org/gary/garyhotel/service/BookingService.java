@@ -1,5 +1,6 @@
 package org.gary.garyhotel.service;
 
+import org.gary.garyhotel.exception.ResourceNotFoundException;
 import org.gary.garyhotel.model.Booking;
 import org.springframework.stereotype.Service;
 
@@ -55,7 +56,7 @@ public class BookingService implements IBookingService {
 
         @Override
         public Booking findByBookingConfirmationCode(String confirmationCode) {
-            return bookingRepository.findByBookingConfirmationCode(confirmationCode);
+            return bookingRepository.findByBookingConfirmationCode(confirmationCode).orElseThrow(() -> new ResourceNotFoundException("Booking with confirmation code: " + confirmationCode + " not found"));
         }
 
         private boolean roomIsAvailable(Booking bookingRequest, List<Booking> existingBookings) {
