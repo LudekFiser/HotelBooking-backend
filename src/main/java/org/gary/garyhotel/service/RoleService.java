@@ -30,7 +30,7 @@ public class RoleService implements IRoleService {
     public Role createRole(Role theRole) {
         String roleName = "ROLE_"+theRole.getName().toUpperCase();
         Role role = new Role(roleName);
-        if (roleRepository.existsByName(role)) {
+        if (roleRepository.existsByName(roleName)) {
             throw new RoleAlreadyExistsException(theRole.getName()+ " role already exists!");
         }
         return roleRepository.save(role);
